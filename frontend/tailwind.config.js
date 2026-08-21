@@ -7,14 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: '#eef2ff',
-          100: '#e0e7ff',
-          500: '#6366f1',
-          600: '#4f46e5',
-          700: '#4338ca',
-          900: '#1e1b4b',
+        darkBg: '#0B0F19',
+        darkSecondary: '#111827',
+        darkCard: '#151C2C',
+        brandViolet: {
+          400: '#A78BFA',
+          500: '#8B5CF6',
+          600: '#7C3AED',
+          700: '#6D28D9',
         },
+        brandPink: {
+          400: '#F472B6',
+          500: '#EC4899',
+          600: '#DB2777',
+        },
+      },
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
       },
     },
   },

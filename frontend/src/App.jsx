@@ -21,7 +21,7 @@ import ManageUsers from './pages/ManageUsers';
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-[#0B0F19] text-slate-100 font-sans">
       <Navbar />
       <main className="flex-1">
         <Routes>
@@ -115,10 +115,6 @@ export default function App() {
           <Route path="*" element={<Home />} />
         </Routes>
       </main>
-
-      <footer className="glass-panel border-t border-slate-900 py-6 text-center text-xs text-slate-400">
-        <p>&copy; 2026 Ticketify Inc. Production-Grade Concurrency Seat Booking Engine.</p>
-      </footer>
     </div>
   );
 }

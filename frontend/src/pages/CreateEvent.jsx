@@ -71,23 +71,22 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10 space-y-8">
+    <div className="max-w-3xl mx-auto px-4 py-10 space-y-8 bg-[#0B0F19]">
       <Link to="/organiser" className="inline-flex items-center gap-2 text-xs font-semibold text-slate-400 hover:text-white">
-        <ArrowLeft className="w-4 h-4" />
-        Back to Organiser Dashboard
+        <ArrowLeft className="w-4 h-4" /> Back to Organiser Dashboard
       </Link>
 
-      <div className="glass-panel p-8 rounded-3xl border-slate-800 space-y-6">
+      <div className="bg-[#151C2C] border border-gray-800 p-8 rounded-3xl space-y-6 shadow-2xl">
         <div>
           <h1 className="text-2xl font-extrabold text-white flex items-center gap-2">
-            <Plus className="w-6 h-6 text-indigo-400" />
+            <Plus className="w-6 h-6 text-violet-400" />
             Create New Event
           </h1>
-          <p className="text-xs text-slate-400">Configure show timing, venue selection, and category pricing</p>
+          <p className="text-xs text-slate-400">Configure show timing, venue layout, and category pricing</p>
         </div>
 
         {error && (
-          <div className="p-4 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs flex items-center gap-2">
+          <div className="p-4 rounded-2xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs flex items-center gap-2">
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{error}</span>
           </div>
@@ -103,7 +102,7 @@ export default function CreateEvent() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Avatar 3 IMAX Release"
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
               />
             </div>
 
@@ -112,7 +111,7 @@ export default function CreateEvent() {
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 font-mono text-xs"
               >
                 <option value="MOVIE">MOVIE</option>
                 <option value="CONCERT">CONCERT</option>
@@ -125,7 +124,7 @@ export default function CreateEvent() {
             <select
               value={venueId}
               onChange={(e) => setVenueId(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500 text-xs"
             >
               {venues.map((v) => (
                 <option key={v._id} value={v._id}>
@@ -142,8 +141,8 @@ export default function CreateEvent() {
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Provide event overview and highlights..."
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-indigo-500"
+              placeholder="Provide show summary and experience highlights..."
+              className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl p-4 text-sm text-white focus:outline-none focus:border-violet-500"
             />
           </div>
 
@@ -154,7 +153,7 @@ export default function CreateEvent() {
               value={image}
               onChange={(e) => setImage(e.target.value)}
               placeholder="https://images.unsplash.com/..."
-              className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+              className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
             />
           </div>
 
@@ -166,7 +165,7 @@ export default function CreateEvent() {
                 required
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
               />
             </div>
 
@@ -177,7 +176,7 @@ export default function CreateEvent() {
                 required
                 value={startTime}
                 onChange={(e) => setStartTime(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
               />
             </div>
 
@@ -188,15 +187,15 @@ export default function CreateEvent() {
                 required
                 value={endTime}
                 onChange={(e) => setEndTime(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[#0B0F19] border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-violet-500"
               />
             </div>
           </div>
 
-          {/* Pricing Config */}
-          <div className="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-3">
+          {/* Pricing Tier */}
+          <div className="p-5 rounded-2xl bg-[#0B0F19] border border-gray-800 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 font-mono">
-              Category-Wise Ticket Pricing ($)
+              Category Ticket Pricing ($)
             </span>
             <div className="grid grid-cols-2 gap-4">
               <div>
@@ -207,7 +206,7 @@ export default function CreateEvent() {
                   min={1}
                   value={premiumPrice}
                   onChange={(e) => setPremiumPrice(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white font-mono mt-1"
+                  className="w-full bg-[#151C2C] border border-gray-800 rounded-xl px-4 py-2 text-sm text-white font-mono mt-1"
                 />
               </div>
 
@@ -219,7 +218,7 @@ export default function CreateEvent() {
                   min={1}
                   value={standardPrice}
                   onChange={(e) => setStandardPrice(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white font-mono mt-1"
+                  className="w-full bg-[#151C2C] border border-gray-800 rounded-xl px-4 py-2 text-sm text-white font-mono mt-1"
                 />
               </div>
             </div>
@@ -228,9 +227,9 @@ export default function CreateEvent() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm rounded-xl transition-all shadow-xl shadow-indigo-600/30"
+            className="w-full py-4 bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-500 hover:to-pink-400 text-white font-extrabold text-sm rounded-xl transition-all shadow-xl shadow-violet-600/25"
           >
-            {submitting ? 'Initializing Show Seats...' : 'Publish Event & Initialize Seats'}
+            {submitting ? 'Initializing Seats...' : 'Publish Show & Initialize Seat Grid'}
           </button>
         </form>
       </div>

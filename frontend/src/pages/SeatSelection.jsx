@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import API from '../services/api';
 import { socket } from '../services/socket';
 import { useAuth } from '../context/AuthContext';
 import VisualSeatMap from '../components/VisualSeatMap';
 import HoldTimer from '../components/HoldTimer';
-import { ShoppingBag, AlertCircle, Sparkles, Lock, ArrowRight, UserPlus, Clock } from 'lucide-react';
+import { AlertCircle, Sparkles, ArrowRight, UserPlus, Clock, Film, MapPin, Calendar, CheckCircle, Armchair } from 'lucide-react';
 
 export default function SeatSelection() {
   const { eventId } = useParams();
@@ -15,14 +15,13 @@ export default function SeatSelection() {
   const [event, setEvent] = useState(null);
   const [seats, setSeats] = useState([]);
   const [selectedSeatIds, setSelectedSeatIds] = useState([]);
-  const [heldSeats, setHeldSeats] = useState([]); // Currently held seats by user
+  const [heldSeats, setHeldSeats] = useState([]);
   const [holdExpiresAt, setHoldExpiresAt] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [holding, setHolding] = useState(false);
   const [error, setError] = useState('');
   const [waitlistSuccess, setWaitlistSuccess] = useState('');
-  const [waitlistCategory, setWaitlistCategory] = useState('Premium');
 
   const fetchSeats = async () => {
     try {
@@ -41,11 +40,9 @@ export default function SeatSelection() {
 
         await fetchSeats();
 
-        // Subscribe to Socket.IO room for this event
         socket.emit('join_event', eventId);
 
         socket.on('seat_status_updated', (data) => {
-          // Update seats state dynamically when Socket event received
           setSeats((prev) =>
             prev.map((s) => (s.id === data.seatId ? { ...s, status: data.status, holdExpiresAt: data.holdExpiresAt } : s))
           );
@@ -67,7 +64,6 @@ export default function SeatSelection() {
 
   const handleToggleSeat = (seat) => {
     setError('');
-
     if (selectedSeatIds.includes(seat.id)) {
       setSelectedSeatIds((prev) => prev.filter((id) => id !== seat.id));
     } else {
@@ -75,7 +71,6 @@ export default function SeatSelection() {
     }
   };
 
-  // Execute Seat Hold API
   const handleHoldSeats = async () => {
     if (selectedSeatIds.length === 0) return;
     setError('');
@@ -86,11 +81,10 @@ export default function SeatSelection() {
         seatIds: selectedSeatIds,
       });
 
-      const { heldSeats: newlyHeld, holdExpiresAt: expires, ttlMinutes } = res.data.data;
+      const { heldSeats: newlyHeld, holdExpiresAt: expires } = res.data.data;
       setHeldSeats(newlyHeld);
       setHoldExpiresAt(expires);
 
-      // Navigate to Checkout page with held seats state
       navigate(`/events/${eventId}/checkout`, {
         state: {
           event,
@@ -101,7 +95,6 @@ export default function SeatSelection() {
     } catch (err) {
       const msg = err.response?.data?.message || 'One or more seats could not be held.';
       setError(msg);
-      // Refresh seat map to reflect current database locks
       fetchSeats();
       setSelectedSeatIds([]);
     } finally {
@@ -109,7 +102,6 @@ export default function SeatSelection() {
     }
   };
 
-  // Join Category Waitlist
   const handleJoinWaitlist = async (category) => {
     try {
       setWaitlistSuccess('');
@@ -121,59 +113,63 @@ export default function SeatSelection() {
     }
   };
 
-  // Calculate pricing breakdown
   const selectedSeatsList = seats.filter((s) => selectedSeatIds.includes(s.id));
   const totalPrice = selectedSeatsList.reduce((sum, s) => sum + s.price, 0);
 
-  // Check if seats of a category are sold out
   const isPremiumSoldOut = seats.length > 0 && seats.filter((s) => s.category === 'Premium' && s.status === 'AVAILABLE').length === 0;
   const isStandardSoldOut = seats.length > 0 && seats.filter((s) => s.category === 'Standard' && s.status === 'AVAILABLE').length === 0;
 
   if (loading) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mx-auto"></div>
-        <p className="text-xs text-slate-400 mt-4">Loading real-time seat matrix...</p>
+      <div className="max-w-4xl mx-auto px-4 py-20 text-center space-y-4">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500 mx-auto"></div>
+        <p className="text-xs text-slate-400">Loading BookSeat visual grid & live locks...</p>
       </div>
     );
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Event Top Summary */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-6 glass-panel rounded-2xl">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-[#0B0F19]">
+      
+      {/* Event Header Summary */}
+      <div className="flex flex-wrap items-center justify-between gap-4 p-6 bg-[#151C2C] border border-gray-800 rounded-3xl shadow-xl">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 font-mono">
+            <span className="text-xs font-black uppercase text-white font-mono tracking-wider">
+              BookSeat Selection &bull;
+            </span>
+            <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-violet-600/30 text-violet-300 border border-violet-500/30 font-mono">
               {event?.type}
             </span>
-            <h1 className="text-xl font-bold text-white">{event?.title}</h1>
           </div>
-          <p className="text-xs text-slate-400">
-            {event?.venueId?.name} &bull; {event?.date} at {event?.startTime}
+          <h1 className="text-2xl font-black text-white">{event?.title}</h1>
+          <p className="text-xs text-slate-400 flex items-center gap-2 mt-1">
+            <MapPin className="w-3.5 h-3.5 text-violet-400" /> {event?.venueId?.name} &bull; <Calendar className="w-3.5 h-3.5 text-pink-400" /> {event?.date} at {event?.startTime}
           </p>
         </div>
 
         {holdExpiresAt && (
-          <HoldTimer expiresAt={holdExpiresAt} onExpire={() => fetchSeats()} />
+          <div className="flex items-center gap-2">
+            <HoldTimer expiresAt={holdExpiresAt} onExpire={() => fetchSeats()} />
+          </div>
         )}
       </div>
 
       {error && (
-        <div className="p-4 rounded-xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs flex items-center gap-2">
+        <div className="p-4 rounded-2xl bg-rose-950/60 border border-rose-800 text-rose-300 text-xs flex items-center gap-2">
           <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
       {waitlistSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs flex items-center gap-2">
+        <div className="p-4 rounded-2xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 text-xs flex items-center gap-2">
           <Sparkles className="w-4 h-4 shrink-0" />
           <span>{waitlistSuccess}</span>
         </div>
       )}
 
-      {/* Visual Seat Layout */}
+      {/* Main Seat Map Grid */}
       <VisualSeatMap
         seats={seats}
         selectedSeatIds={selectedSeatIds}
@@ -181,55 +177,53 @@ export default function SeatSelection() {
         currentUserId={user?._id}
       />
 
-      {/* Waitlist Drawer if Sold Out */}
+      {/* Waitlist Drawer if Category Sold Out */}
       {(isPremiumSoldOut || isStandardSoldOut) && (
-        <div className="p-6 glass-panel rounded-2xl border-pink-500/30 space-y-4">
+        <div className="p-6 bg-[#151C2C] border border-pink-500/40 rounded-3xl space-y-4 shadow-xl">
           <div className="flex items-center gap-3 text-pink-400">
             <Clock className="w-5 h-5" />
-            <h3 className="text-sm font-bold text-white">Sold-Out Category Waitlist Available</h3>
+            <h3 className="text-sm font-bold text-white">Sold-Out Category Waitlist Active</h3>
           </div>
-          <p className="text-xs text-slate-300">
-            Some seat categories are currently fully held or booked. Join the waitlist to receive an exclusive email link when a cancellation occurs!
+          <p className="text-xs text-slate-300 leading-relaxed">
+            One or more categories are currently fully reserved. Join the waitlist to receive an automated email offer when a booking is cancelled!
           </p>
           <div className="flex flex-wrap gap-3">
             {isPremiumSoldOut && (
               <button
                 onClick={() => handleJoinWaitlist('Premium')}
-                className="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20"
+                className="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-amber-600/20"
               >
-                <UserPlus className="w-4 h-4" />
-                Join Premium Waitlist
+                <UserPlus className="w-4 h-4" /> Join VIP Waitlist
               </button>
             )}
             {isStandardSoldOut && (
               <button
                 onClick={() => handleJoinWaitlist('Standard')}
-                className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-purple-600/20"
+                className="bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 shadow-lg shadow-purple-600/20"
               >
-                <UserPlus className="w-4 h-4" />
-                Join Standard Waitlist
+                <UserPlus className="w-4 h-4" /> Join Standard Waitlist
               </button>
             )}
           </div>
         </div>
       )}
 
-      {/* Bottom Sticky Checkout Bar */}
-      <div className="sticky bottom-4 z-40 p-5 glass-panel rounded-2xl border-indigo-500/30 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
+      {/* Sticky Bottom Booking Bar */}
+      <div className="sticky bottom-4 z-40 p-5 bg-[#151C2C]/95 backdrop-blur-md border border-violet-500/30 rounded-3xl flex flex-wrap items-center justify-between gap-4 shadow-2xl">
         <div className="flex items-center gap-6">
           <div>
             <span className="text-[10px] text-slate-400 uppercase font-mono block">Selected Seats</span>
-            <span className="text-lg font-extrabold text-white">
+            <span className="text-lg font-black text-white">
               {selectedSeatIds.length > 0
                 ? selectedSeatsList.map((s) => s.label).join(', ')
                 : 'None Selected'}
             </span>
           </div>
 
-          <div className="h-8 w-px bg-slate-800 hidden sm:block"></div>
+          <div className="h-8 w-px bg-gray-800 hidden sm:block"></div>
 
           <div>
-            <span className="text-[10px] text-slate-400 uppercase font-mono block">Total Payable</span>
+            <span className="text-[10px] text-slate-400 uppercase font-mono block">Total Amount</span>
             <span className="text-2xl font-black text-emerald-400">${totalPrice}</span>
           </div>
         </div>
@@ -237,16 +231,17 @@ export default function SeatSelection() {
         <button
           disabled={selectedSeatIds.length === 0 || holding}
           onClick={handleHoldSeats}
-          className={`flex items-center gap-2 font-bold text-sm px-8 py-3.5 rounded-xl transition-all shadow-xl ${
+          className={`flex items-center gap-2 font-extrabold text-sm px-8 py-3.5 rounded-2xl transition-all shadow-xl ${
             selectedSeatIds.length > 0 && !holding
-              ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/30 hover:scale-105'
-              : 'bg-slate-800 text-slate-500 cursor-not-allowed border border-slate-700'
+              ? 'bg-gradient-to-r from-violet-600 to-pink-500 hover:from-violet-500 hover:to-pink-400 text-white shadow-violet-600/30 hover:scale-105'
+              : 'bg-gray-800 text-slate-500 cursor-not-allowed border border-gray-700'
           }`}
         >
-          {holding ? 'Holding Seats...' : 'Hold & Proceed to Checkout'}
+          {holding ? 'Locking Seats...' : 'Continue to Checkout'}
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
+
     </div>
   );
 }

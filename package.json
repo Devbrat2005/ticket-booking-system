@@ -1,7 +1,7 @@
 {
-  "name": "ticket-booking-system",
+  "name": "bookseat",
   "version": "1.0.0",
-  "description": "Production-ready ticket booking system with real-time seat maps, 10-minute hold TTL, concurrency protection, and FIFO waitlist",
+  "description": "BookSeat - Official Movie & Concert Ticket Booking Platform",
   "private": true,
   "scripts": {
     "start:backend": "cd backend && npm run dev",
@@ -10,6 +10,7 @@
     "test:backend": "cd backend && npm test"
   },
   "keywords": [
+    "bookseat",
     "ticket-booking",
     "express",
     "react",

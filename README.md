@@ -1,19 +1,24 @@
-# Ticket Booking System 🎟️
+# BookSeat 🎟️
 
-A complete, production-ready full-stack ticket booking platform for movies and concerts featuring interactive real-time seat maps, 10-minute hold TTL with concurrency lock protection, automatic hold release, tokenized FIFO category waitlists, QR code generation, Nodemailer ticket dispatch, and role-based dashboards (Customer, Organiser, Admin).
+**Your Seat. Your Experience.**
+
+A production-ready full-stack ticket booking platform for movies, concerts, and live events. Built with real-time seat selection, 10-minute hold TTL, concurrency protection, tokenized FIFO waitlists, QR code passes, and Nodemailer notifications.
 
 ---
 
-## 1. Project Overview & Features
+## 1. Brand Identity & Features
 
-- **Visual Real-Time Seat Map**: Interactive seat map distinguishing Available, Selected, Held, and Booked seats across Premium and Standard categories.
-- **Seat Hold & 10-Minute TTL**: Atomically reserves selected seats for 10 minutes (`HOLD_TTL_MINUTES=10`).
-- **Strict Concurrency Protection**: Database-level atomic queries (`findOneAndUpdate`) preventing race conditions when two users select the exact same seat simultaneously.
-- **Automated Hold Expiry**: Cron-based background cleanup sweep returning abandoned/expired holds back to `AVAILABLE`.
-- **FIFO Category Waitlist & Offers**: Automatic queueing for sold-out seat categories. Upon booking cancellation, top FIFO candidate receives a time-limited token offer link (`/waitlist/offer/:token`).
-- **QR Ticket & Email Dispatch**: Generates base64 PNG QR code containing `{"bookingReference": "TKB-2026-XXXXXX"}` and dispatches rich HTML emails via Nodemailer.
-- **Socket.IO Real-Time Synchronization**: Instantly broadcasts seat locks, releases, and bookings to all connected clients viewing that event room (`event:<eventId>`).
-- **Role-Based Authorization**: Enforces strict JWT & role middleware across `CUSTOMER`, `ORGANISER`, and `ADMIN`.
+- **Official Brand Name**: BookSeat
+- **Tagline**: *"Your Seat. Your Experience."*
+- **Alternative Tagline**: *"Book Your Seat. Enjoy Your Moment."*
+- **Interactive Seat Map**: Live visual seat matrix distinguishing Available, Selected, Held, and Booked states.
+- **10-Minute Seat Lock (TTL)**: Atomic reservation locks preventing double-booking during checkout.
+- **Strict Concurrency Locks**: Atomic MongoDB queries (`findOneAndUpdate`) guaranteeing race-condition safety.
+- **Automated Hold Expiry**: Cron-based background worker (`ttlCleanupJob.js`) returning abandoned seat holds back to `AVAILABLE`.
+- **FIFO Category Waitlist**: Category-specific queueing with 5-minute tokenized email offer links (`/waitlist/offer/:token`).
+- **QR Ticket Pass**: Generates base64 PNG QR code encoding `{"bookingReference": "TKB-2026-XXXXXX"}` with Nodemailer HTML dispatch.
+- **Socket.IO Synchronization**: Real-time event rooms (`event:<eventId>`) broadcasting seat state updates across all connected clients.
+- **Role-Based Portals**: Dedicated experience for Customer (`/my-bookings`), Organiser (`/organiser`), and Admin (`/admin`).
 
 ---
 
@@ -25,7 +30,7 @@ A complete, production-ready full-stack ticket booking platform for movies and c
 
 ---
 
-## 3. Architecture & Folder Structure
+## 3. Architecture & Repository Structure
 
 ```
 ticket booking/
@@ -33,11 +38,9 @@ ticket booking/
 │   ├── src/
 │   │   ├── config/ (db.js, socket.js)
 │   │   ├── models/ (User.js, Venue.js, Seat.js, Event.js, ShowSeat.js, Booking.js, Waitlist.js, WaitlistOffer.js)
-│   │   ├── controllers/ (authController.js, eventController.js, venueController.js, seatController.js, bookingController.js, waitlistController.js, organiserController.js, adminController.js)
-│   │   ├── routes/ (auth.js, events.js, venues.js, seats.js, bookings.js, waitlist.js, organiser.js, admin.js, health.js)
-│   │   ├── middleware/ (auth.js, role.js, errorHandler.js)
+│   │   ├── controllers/ (authController.js, eventController.js, seatController.js, bookingController.js, waitlistController.js, etc.)
+│   │   ├── routes/ (auth.js, events.js, seats.js, bookings.js, waitlist.js, health.js)
 │   │   ├── services/ (qrService.js, emailService.js, waitlistService.js, expiryService.js)
-│   │   ├── utils/ (bookingRef.js)
 │   │   ├── jobs/ (ttlCleanupJob.js)
 │   │   ├── seed.js
 │   │   └── server.js
@@ -47,9 +50,7 @@ ticket booking/
 ├── frontend/
 │   ├── src/
 │   │   ├── components/ (Navbar.jsx, VisualSeatMap.jsx, HoldTimer.jsx, ProtectedRoute.jsx)
-│   │   ├── context/ (AuthContext.jsx)
-│   │   ├── pages/ (Home.jsx, Events.jsx, EventDetail.jsx, SeatSelection.jsx, Checkout.jsx, BookingConfirmation.jsx, MyBookings.jsx, WaitlistOfferPage.jsx, OrganiserDashboard.jsx, CreateEvent.jsx, AdminDashboard.jsx, ManageVenues.jsx, ManageUsers.jsx, Login.jsx, Register.jsx)
-│   │   ├── services/ (api.js, socket.js)
+│   │   ├── pages/ (Home.jsx, Events.jsx, EventDetail.jsx, SeatSelection.jsx, Checkout.jsx, BookingConfirmation.jsx, MyBookings.jsx, WaitlistOfferPage.jsx, OrganiserDashboard.jsx, AdminDashboard.jsx, etc.)
 │   │   ├── App.jsx
 │   │   └── main.jsx
 │   ├── package.json
@@ -76,7 +77,7 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USER=dev@example.com
 EMAIL_PASSWORD=devpassword
-EMAIL_FROM="Ticket Booking System <noreply@ticketbooking.com>"
+EMAIL_FROM="BookSeat <noreply@bookseat.com>"
 ```
 
 ### Frontend (`frontend/.env`)
@@ -87,86 +88,37 @@ VITE_SOCKET_URL=http://localhost:5000
 
 ---
 
-## 5. Local Setup & Installation
+## 5. Local Setup & Quick Start
 
-### Step 1: Install Dependencies
 ```bash
-# Backend dependencies
-cd backend
-npm install
+# 1. Install dependencies
+cd backend && npm install
+cd ../frontend && npm install
 
-# Frontend dependencies
-cd ../frontend
-npm install
-```
+# 2. Seed database
+cd ../backend && npm run seed
 
-### Step 2: Seed Database
-Ensure MongoDB is running locally or provide a MongoDB Atlas URI in `backend/.env`.
-```bash
-cd backend
-npm run seed
-```
-
-### Step 3: Run Test Suite
-```bash
-cd backend
-npm test
-```
-
-### Step 4: Launch Applications
-```bash
-# Terminal 1 - Backend Server
-cd backend
+# 3. Start backend API server (Terminal 1)
 npm run dev
 
-# Terminal 2 - Frontend Application
-cd frontend
-npm run dev
+# 4. Start frontend web app (Terminal 2)
+cd ../frontend && npm run dev
 ```
 
-Visit the app at `http://localhost:5173`.
+Visit the app at **`http://localhost:5173`**.
 
 ---
 
-## 6. Default Demo Test Credentials
+## 6. Pre-configured Demo Test Accounts
 
 | Role | Email | Password | Access Level |
 |---|---|---|---|
-| **ADMIN** | `admin@example.com` | `password123` | Venue Seat Grid Builder, User Manager, System Stats |
-| **ORGANISER** | `organiser@example.com` | `password123` | Event Creation, Category Pricing, Revenue Summary |
-| **CUSTOMER** | `customer@example.com` | `password123` | Seat Hold, Checkout, QR Passes, Booking History, Waitlist |
-| **CUSTOMER 2** | `customer2@example.com` | `password123` | Concurrency Testing & Waitlist Offers |
+| **ADMIN** | `admin@example.com` | `password123` | BookSeat Admin (Venues, Users, System Stats) |
+| **ORGANISER** | `organiser@example.com` | `password123` | BookSeat Organiser (Event Creation, Revenue Analytics) |
+| **CUSTOMER** | `customer@example.com` | `password123` | Customer Seat Holds, Checkout, QR Passes, Bookings |
 
 ---
 
-## 7. API Documentation Summary
+## 7. License & Rights
 
-### AUTH
-- `POST /api/auth/register` - Register User
-- `POST /api/auth/login` - Authenticate & Get JWT
-- `GET /api/auth/me` - Current User Profile
-
-### EVENTS & SEATS
-- `GET /api/events` - Catalog Search & Multi-Filter
-- `GET /api/events/:id` - Event Details
-- `POST /api/events` - Create Event (Organiser/Admin)
-- `GET /api/events/:eventId/seats` - Real-Time Seat Map Grid
-- `POST /api/events/:eventId/seats/hold` - Atomic Seat Lock
-- `POST /api/events/:eventId/seats/release` - Release Seat Lock
-
-### BOOKINGS & WAITLIST
-- `POST /api/bookings` - Confirm Booking & Generate QR Ticket
-- `GET /api/bookings/my` - User Booking History
-- `POST /api/bookings/:id/cancel` - Cancel Booking & Auto-Assign Waitlist
-- `POST /api/waitlist/events/:eventId/waitlist` - Join Category Waitlist
-- `GET /api/waitlist/offers/:token` - View Time-Limited Offer
-- `POST /api/waitlist/offers/:token/accept` - Redeem Offer
-- `POST /api/waitlist/offers/:token/decline` - Decline Offer
-
----
-
-## 8. Deployment Guide
-
-- **Frontend (Vercel)**: Set `VITE_API_URL` and `VITE_SOCKET_URL` environment variables pointing to deployed backend. Build command: `npm run build`.
-- **Backend (Render / Railway)**: Deploy Node.js Express server. Add environment variables `MONGODB_URI`, `JWT_SECRET`, `CORS_ORIGIN`.
-- **Database (MongoDB Atlas)**: Set IP Access Whitelist `0.0.0.0/0` or cloud host IP.
+&copy; 2026 BookSeat. All rights reserved.
