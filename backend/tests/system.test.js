@@ -1,3 +1,4 @@
+require('dotenv').config();
 const request = require('supertest');
 const mongoose = require('mongoose');
 const { app } = require('../src/server');
@@ -16,8 +17,11 @@ let customer1Id, customer2Id;
 let sampleEventId, sampleVenueId, sampleSeatId;
 
 beforeAll(async () => {
-  const uri = process.env.MONGODB_URI_TEST || 'mongodb://127.0.0.1:27017/ticket-booking-test';
-  await mongoose.connect(uri);
+  const defaultUri = process.env.MONGODB_URI
+    ? process.env.MONGODB_URI.replace('/ticket_booking', '/ticket_booking_test')
+    : 'mongodb://127.0.0.1:27017/ticket-booking-test';
+  const uri = process.env.MONGODB_URI_TEST || defaultUri;
+  await mongoose.connect(uri, { serverSelectionTimeoutMS: 5000 });
 
   // Clean collections
   await User.deleteMany({});

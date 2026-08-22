@@ -39,7 +39,7 @@ const createVenue = async (req, res, next) => {
       for (let num = 1; num <= venue.seatLayout.seatsPerRow; num++) {
         const prefix = category === 'Premium' ? 'P' : 'S';
         const formattedNum = num < 10 ? `0${num}` : `${num}`;
-        const label = `${prefix}${formattedNum}`;
+        const label = `${prefix}-${row}${formattedNum}`;
         seatsToInsert.push({
           venueId: venue._id,
           row,

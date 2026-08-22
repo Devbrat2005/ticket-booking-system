@@ -113,7 +113,7 @@ const seedData = async () => {
             venueId: venue._id,
             row,
             number: num,
-            label: `${prefix}${formattedNum}`,
+            label: `${prefix}-${row}${formattedNum}`,
             category,
           });
         }

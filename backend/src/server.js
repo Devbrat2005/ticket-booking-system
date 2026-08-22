@@ -75,8 +75,10 @@ if (process.env.NODE_ENV !== 'test') {
     
     // Asynchronously connect database & start TTL job
     connectDB()
-      .then(() => {
-        startTTLJob();
+      .then((conn) => {
+        if (conn) {
+          startTTLJob();
+        }
       })
       .catch((err) => {
         console.warn(`[SERVER WARN] Database not connected yet (${err.message}). API server is running on port ${PORT}.`);
