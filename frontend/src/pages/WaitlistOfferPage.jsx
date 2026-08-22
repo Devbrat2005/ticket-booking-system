@@ -74,7 +74,7 @@ export default function WaitlistOfferPage() {
     return (
       <div className="max-w-md mx-auto px-4 py-20 text-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-pink-500 mx-auto"></div>
-        <p className="text-xs text-slate-400">Verifying BookSeat waitlist token...</p>
+        <p className="text-xs text-slate-400">Verifying Ticket Booking waitlist token...</p>
       </div>
     );
   }
@@ -114,10 +114,10 @@ export default function WaitlistOfferPage() {
 
         <div>
           <span className="text-[10px] font-mono font-extrabold uppercase px-3.5 py-1 rounded-full bg-pink-950 text-pink-300 border border-pink-800 tracking-wider">
-            Urgent BookSeat Offer
+            Urgent Ticket Booking Offer
           </span>
           <h1 className="text-3xl font-black text-white mt-3">Your Seat Is Available!</h1>
-          <p className="text-xs text-slate-300 mt-1">A seat has become available for you on BookSeat.</p>
+          <p className="text-xs text-slate-300 mt-1">A seat has become available for you on Ticket Booking.</p>
         </div>
 
         {/* Reserved Seat Details */}

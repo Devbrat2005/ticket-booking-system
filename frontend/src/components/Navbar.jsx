@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 import { Armchair, Film, Music, Search, LayoutDashboard, Shield, LogOut, User, Menu, X, Sparkles, Ticket } from 'lucide-react';
 
 export default function Navbar() {
@@ -21,20 +22,13 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Official BookSeat Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-violet-600/30 group-hover:scale-105 transition-transform duration-300">
-              <Armchair className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <div className="text-2xl font-black tracking-tight leading-none">
-                <span className="text-white">Book</span>
-                <span className="gradient-text-brand">Seat</span>
-              </div>
-              <span className="text-[9px] block font-mono font-bold tracking-widest text-slate-400 uppercase mt-0.5">
-                YOUR SEAT. YOUR EXPERIENCE.
-              </span>
-            </div>
+          {/* Official Ticket Booking Logo */}
+          <Link to="/" className="flex items-center group">
+            <img
+              src={logo}
+              alt="Ticket Booking"
+              className="h-10 md:h-12 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            />
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -219,7 +213,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-semibold text-slate-200 py-2"
             >
-              BookSeat Organiser
+              Ticket Booking Organiser
             </Link>
           )}
 
@@ -229,7 +223,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="block text-sm font-semibold text-slate-200 py-2"
             >
-              BookSeat Admin
+              Ticket Booking Admin
             </Link>
           )}
 

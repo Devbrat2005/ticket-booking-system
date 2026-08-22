@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import API from '../services/api';
+import logo from '../assets/logo.png';
 import { Search, Film, Music, ShieldCheck, Zap, Ticket, Clock, MapPin, Calendar, Sparkles, ArrowRight, Star, Armchair } from 'lucide-react';
 
 export default function Home() {
@@ -59,7 +60,7 @@ export default function Home() {
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-violet-950/60 border border-violet-500/30 text-violet-300 text-xs font-bold uppercase tracking-wider shadow-xl shadow-violet-600/10 font-mono">
             <Sparkles className="w-4 h-4 text-violet-400" />
-            Official BookSeat Platform
+            Official Ticket Booking Platform
           </div>
 
           <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight text-white leading-none">
@@ -226,10 +227,10 @@ export default function Home() {
         )}
       </section>
 
-      {/* 3. WHY CHOOSE BOOKSEAT */}
+      {/* 3. WHY CHOOSE TICKET BOOKING */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
-          <h2 className="text-3xl font-extrabold text-white">Why Book Your Seats With BookSeat</h2>
+          <h2 className="text-3xl font-extrabold text-white">Why Book Your Seats With Ticket Booking</h2>
           <p className="text-sm text-slate-400">Engineered with real-time seat locks and automated waitlist escalation</p>
         </div>
 
@@ -280,15 +281,9 @@ export default function Home() {
       <footer className="border-t border-gray-800/80 bg-[#0B0F19] pt-12 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="flex flex-wrap items-center justify-between gap-6 pb-8 border-b border-gray-800">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-violet-600 flex items-center justify-center text-white font-bold">
-                <Armchair className="w-5 h-5" />
-              </div>
-              <div className="text-xl font-black">
-                <span className="text-white">Book</span>
-                <span className="gradient-text-brand">Seat</span>
-              </div>
-            </div>
+            <Link to="/" className="flex items-center">
+              <img src={logo} alt="Ticket Booking" className="h-8 w-auto object-contain" />
+            </Link>
             <div className="flex flex-wrap gap-6 text-xs text-slate-400 font-semibold">
               <Link to="/events?type=MOVIE" className="hover:text-white transition-colors">Movies</Link>
               <Link to="/events?type=CONCERT" className="hover:text-white transition-colors">Concerts</Link>
@@ -297,7 +292,7 @@ export default function Home() {
             </div>
           </div>
           <p className="text-center text-xs text-slate-500 font-mono">
-            &copy; 2026 BookSeat. All rights reserved.
+            &copy; 2026 Ticket Booking. All rights reserved.
           </p>
         </div>
       </footer>

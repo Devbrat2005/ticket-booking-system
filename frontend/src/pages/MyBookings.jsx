@@ -52,7 +52,7 @@ export default function MyBookings() {
     return (
       <div className="max-w-6xl mx-auto px-4 py-20 text-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500 mx-auto"></div>
-        <p className="text-xs text-slate-400">Loading your BookSeat tickets...</p>
+        <p className="text-xs text-slate-400">Loading your Ticket Booking tickets...</p>
       </div>
     );
   }
@@ -61,7 +61,7 @@ export default function MyBookings() {
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 bg-[#0B0F19]">
       <div>
         <h1 className="text-3xl font-extrabold text-white">My Bookings</h1>
-        <p className="text-sm text-slate-400 mt-1">View your confirmed BookSeat ticket passes and QR codes</p>
+        <p className="text-sm text-slate-400 mt-1">View your confirmed Ticket Booking ticket passes and QR codes</p>
       </div>
 
       {message && (
@@ -82,7 +82,7 @@ export default function MyBookings() {
         <div className="text-center py-20 bg-[#151C2C] border border-gray-800 rounded-3xl space-y-4">
           <Ticket className="w-12 h-12 text-slate-500 mx-auto" />
           <h3 className="text-lg font-bold text-white">No Bookings Found</h3>
-          <p className="text-xs text-slate-400">You haven't placed any event bookings on BookSeat yet.</p>
+          <p className="text-xs text-slate-400">You haven't placed any event bookings on Ticket Booking yet.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -161,7 +161,7 @@ export default function MyBookings() {
         </div>
       )}
 
-      {/* BookSeat Ticket Pass Modal */}
+      {/* Ticket Booking Ticket Pass Modal */}
       {selectedBooking && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-[#151C2C] border border-gray-800 rounded-3xl max-w-md w-full p-6 space-y-6 relative shadow-2xl">

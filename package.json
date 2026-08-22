@@ -1,7 +1,7 @@
 {
-  "name": "bookseat",
+  "name": "ticket-booking",
   "version": "1.0.0",
-  "description": "BookSeat - Official Movie & Concert Ticket Booking Platform",
+  "description": "Ticket Booking - Official Movie & Concert Ticket Booking Platform",
   "private": true,
   "scripts": {
     "start:backend": "cd backend && npm run dev",
@@ -10,7 +10,7 @@
     "test:backend": "cd backend && npm test"
   },
   "keywords": [
-    "bookseat",
+    "ticket-booking",
     "ticket-booking",
     "express",
     "react",

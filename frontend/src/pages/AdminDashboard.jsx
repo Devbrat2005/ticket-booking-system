@@ -25,7 +25,7 @@ export default function AdminDashboard() {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-500 mx-auto"></div>
-        <p className="text-xs text-slate-400">Loading BookSeat admin stats...</p>
+        <p className="text-xs text-slate-400">Loading Ticket Booking admin stats...</p>
       </div>
     );
   }
@@ -39,7 +39,7 @@ export default function AdminDashboard() {
           <Shield className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-3xl font-extrabold text-white">BookSeat Admin</h1>
+          <h1 className="text-3xl font-extrabold text-white">Ticket Booking Admin</h1>
           <p className="text-sm text-slate-400">Global system metrics, user authorization, and venue grid management</p>
         </div>
       </div>

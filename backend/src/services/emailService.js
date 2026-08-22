@@ -21,8 +21,8 @@ const sendBookingConfirmationEmail = async ({ customerName, customerEmail, booki
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #f8fafc; padding: 24px; border-radius: 12px;">
-      <h1 style="color: #6366f1; margin-bottom: 8px;">🎟️ BookSeat Confirmation</h1>
-      <p style="font-size: 16px; color: #94a3b8;">Hi ${customerName}, your BookSeat ticket is confirmed!</p>
+      <h1 style="color: #6366f1; margin-bottom: 8px;">🎟️ Ticket Booking Confirmation</h1>
+      <p style="font-size: 16px; color: #94a3b8;">Hi ${customerName}, your Ticket Booking ticket is confirmed!</p>
 
       <div style="background: #1e293b; padding: 20px; border-radius: 8px; margin: 20px 0;">
         <p style="margin: 6px 0;"><strong>Booking Reference:</strong> <span style="color: #38bdf8; font-family: monospace; font-size: 16px;">${bookingReference}</span></p>
@@ -34,31 +34,31 @@ const sendBookingConfirmationEmail = async ({ customerName, customerEmail, booki
       </div>
 
       <div style="text-align: center; margin: 24px 0; background: #ffffff; padding: 16px; border-radius: 8px; display: inline-block;">
-        <img src="${qrCodeData}" alt="BookSeat QR Ticket" style="width: 200px; height: 200px;" />
+        <img src="${qrCodeData}" alt="Ticket Booking QR Ticket" style="width: 200px; height: 200px;" />
         <p style="color: #0f172a; font-family: monospace; margin-top: 8px; font-weight: bold;">${bookingReference}</p>
       </div>
 
-      <p style="font-size: 12px; color: #64748b; text-align: center;">Show this QR code at the venue entrance. Thank you for booking with BookSeat!</p>
+      <p style="font-size: 12px; color: #64748b; text-align: center;">Show this QR code at the venue entrance. Thank you for booking with Ticket Booking!</p>
     </div>
   `;
 
   if (!transporter) {
     console.warn(`\n[EMAIL SERVICE DEV WARNING] Email credentials not configured. Skipping SMTP dispatch.`);
-    console.warn(`[BOOKSEAT TICKET FOR ${customerEmail}] Ref: ${bookingReference} | Seats: ${seatsList} | Total: $${totalAmount}\n`);
+    console.warn(`[TICKET BOOKING TICKET FOR ${customerEmail}] Ref: ${bookingReference} | Seats: ${seatsList} | Total: $${totalAmount}\n`);
     return { status: 'DEV_LOGGED', bookingReference };
   }
 
   try {
     const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM || '"BookSeat" <noreply@bookseat.com>',
+      from: process.env.EMAIL_FROM || '"Ticket Booking" <noreply@ticketbooking.com>',
       to: customerEmail,
-      subject: `Your BookSeat Ticket is Confirmed 🎟️ - ${eventTitle} [${bookingReference}]`,
+      subject: `Your Ticket Booking Ticket is Confirmed 🎟️ - ${eventTitle} [${bookingReference}]`,
       html: htmlContent,
     });
-    console.log(`BookSeat booking confirmation email sent: ${info.messageId}`);
+    console.log(`Ticket Booking booking confirmation email sent: ${info.messageId}`);
     return info;
   } catch (error) {
-    console.error(`Failed to send BookSeat email to ${customerEmail}:`, error.message);
+    console.error(`Failed to send Ticket Booking email to ${customerEmail}:`, error.message);
     return { status: 'FAILED', error: error.message };
   }
 };
@@ -69,9 +69,9 @@ const sendWaitlistOfferEmail = async ({ customerName, customerEmail, eventTitle,
 
   const htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0f172a; color: #f8fafc; padding: 24px; border-radius: 12px;">
-      <h1 style="color: #ec4899; margin-bottom: 8px;">🔥 Your Seat Is Available on BookSeat!</h1>
+      <h1 style="color: #ec4899; margin-bottom: 8px;">🔥 Your Seat Is Available on Ticket Booking!</h1>
       <p style="font-size: 16px; color: #94a3b8;">Hi ${customerName},</p>
-      <p style="font-size: 15px;">A seat has become available for you on BookSeat! A <strong>${category}</strong> seat (${seatLabel}) is ready for <strong>${eventTitle}</strong>.</p>
+      <p style="font-size: 15px;">A seat has become available for you on Ticket Booking! A <strong>${category}</strong> seat (${seatLabel}) is ready for <strong>${eventTitle}</strong>.</p>
 
       <div style="background: #1e293b; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #ec4899;">
         <p style="margin: 6px 0;"><strong>Category:</strong> ${category}</p>
@@ -83,27 +83,27 @@ const sendWaitlistOfferEmail = async ({ customerName, customerEmail, eventTitle,
         <a href="${offerUrl}" style="background: #ec4899; color: #ffffff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">Accept & Book</a>
       </div>
 
-      <p style="font-size: 12px; color: #64748b; text-align: center;">If not accepted before expiry, this offer will automatically pass to the next customer on the BookSeat waitlist.</p>
+      <p style="font-size: 12px; color: #64748b; text-align: center;">If not accepted before expiry, this offer will automatically pass to the next customer on the Ticket Booking waitlist.</p>
     </div>
   `;
 
   if (!transporter) {
     console.warn(`\n[EMAIL SERVICE DEV WARNING] Email credentials not configured. Skipping SMTP waitlist dispatch.`);
-    console.warn(`[BOOKSEAT WAITLIST OFFER FOR ${customerEmail}] Event: ${eventTitle} | Seat: ${seatLabel} | Link: ${offerUrl}\n`);
+    console.warn(`[TICKET BOOKING WAITLIST OFFER FOR ${customerEmail}] Event: ${eventTitle} | Seat: ${seatLabel} | Link: ${offerUrl}\n`);
     return { status: 'DEV_LOGGED', offerToken };
   }
 
   try {
     const info = await transporter.sendMail({
-      from: process.env.EMAIL_FROM || '"BookSeat" <noreply@bookseat.com>',
+      from: process.env.EMAIL_FROM || '"Ticket Booking" <noreply@ticketbooking.com>',
       to: customerEmail,
-      subject: `BookSeat Waitlist Ticket Offer: Action Required 🎟️ - ${eventTitle}`,
+      subject: `Ticket Booking Waitlist Ticket Offer: Action Required 🎟️ - ${eventTitle}`,
       html: htmlContent,
     });
-    console.log(`BookSeat waitlist offer email sent: ${info.messageId}`);
+    console.log(`Ticket Booking waitlist offer email sent: ${info.messageId}`);
     return info;
   } catch (error) {
-    console.error(`Failed to send BookSeat waitlist email to ${customerEmail}:`, error.message);
+    console.error(`Failed to send Ticket Booking waitlist email to ${customerEmail}:`, error.message);
     return { status: 'FAILED', error: error.message };
   }
 };

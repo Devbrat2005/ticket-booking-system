@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 import { Armchair, Lock, Mail, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function Login() {
@@ -49,36 +50,30 @@ export default function Login() {
         <div className="absolute inset-0 z-0 opacity-30">
           <img
             src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?auto=format&fit=crop&q=80&w=1500"
-            alt="BookSeat Cinema Visual"
+            alt="Ticket Booking Cinema Visual"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-transparent"></div>
         </div>
 
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 to-pink-500 flex items-center justify-center text-white font-bold shadow-lg">
-            <Armchair className="w-5 h-5" />
-          </div>
-          <div className="text-2xl font-black">
-            <span className="text-white">Book</span>
-            <span className="gradient-text-brand">Seat</span>
-          </div>
+        <div className="relative z-10 flex items-center">
+          <img src={logo} alt="Ticket Booking" className="h-10 w-auto object-contain" />
         </div>
 
         <div className="relative z-10 space-y-4 max-w-lg">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-900/40 border border-violet-500/30 text-violet-300 text-xs font-bold font-mono">
-            <Sparkles className="w-3.5 h-3.5" /> BookSeat Platform
+            <Sparkles className="w-3.5 h-3.5" /> Ticket Booking Platform
           </div>
           <h2 className="text-4xl font-extrabold text-white leading-tight">
             Your Seat. <span className="gradient-text-brand">Your Experience.</span>
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Access your BookSeat reservations, track active 10-minute hold TTLs, and receive instant QR ticket passes.
+            Access your Ticket Booking reservations, track active 10-minute hold TTLs, and receive instant QR ticket passes.
           </p>
         </div>
 
         <div className="relative z-10 text-xs text-slate-500 font-mono">
-          &copy; 2026 BookSeat. All rights reserved.
+          &copy; 2026 Ticket Booking. All rights reserved.
         </div>
       </div>
 
@@ -86,7 +81,7 @@ export default function Login() {
       <div className="flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8 bg-[#151C2C] p-8 sm:p-10 rounded-3xl border border-gray-800 shadow-2xl">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-extrabold text-white">Welcome to BookSeat</h2>
+            <h2 className="text-2xl font-extrabold text-white">Welcome to Ticket Booking</h2>
             <p className="text-xs text-slate-400">Sign in to manage your ticket reservations</p>
           </div>
 

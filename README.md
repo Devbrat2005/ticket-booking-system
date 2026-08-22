@@ -1,4 +1,4 @@
-# BookSeat 🎟️
+# Ticket Booking 🎟️
 
 **Your Seat. Your Experience.**
 
@@ -8,7 +8,7 @@ A production-ready full-stack ticket booking platform for movies, concerts, and 
 
 ## 1. Brand Identity & Features
 
-- **Official Brand Name**: BookSeat
+- **Official Brand Name**: Ticket Booking
 - **Tagline**: *"Your Seat. Your Experience."*
 - **Alternative Tagline**: *"Book Your Seat. Enjoy Your Moment."*
 - **Interactive Seat Map**: Live visual seat matrix distinguishing Available, Selected, Held, and Booked states.
@@ -77,7 +77,7 @@ EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USER=dev@example.com
 EMAIL_PASSWORD=devpassword
-EMAIL_FROM="BookSeat <noreply@bookseat.com>"
+EMAIL_FROM="Ticket Booking <noreply@ticketbooking.com>"
 ```
 
 ### Frontend (`frontend/.env`)
@@ -113,12 +113,12 @@ Visit the app at **`http://localhost:5173`**.
 
 | Role | Email | Password | Access Level |
 |---|---|---|---|
-| **ADMIN** | `admin@example.com` | `password123` | BookSeat Admin (Venues, Users, System Stats) |
-| **ORGANISER** | `organiser@example.com` | `password123` | BookSeat Organiser (Event Creation, Revenue Analytics) |
+| **ADMIN** | `admin@example.com` | `password123` | Ticket Booking Admin (Venues, Users, System Stats) |
+| **ORGANISER** | `organiser@example.com` | `password123` | Ticket Booking Organiser (Event Creation, Revenue Analytics) |
 | **CUSTOMER** | `customer@example.com` | `password123` | Customer Seat Holds, Checkout, QR Passes, Bookings |
 
 ---
 
 ## 7. License & Rights
 
-&copy; 2026 BookSeat. All rights reserved.
+&copy; 2026 Ticket Booking. All rights reserved.

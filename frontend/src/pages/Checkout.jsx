@@ -23,9 +23,9 @@ export default function Checkout() {
     return (
       <div className="max-w-md mx-auto px-4 py-20 text-center space-y-4">
         <h2 className="text-xl font-bold text-white">No Seats Held for Checkout</h2>
-        <p className="text-xs text-slate-400">Please select seats from the BookSeat map first.</p>
+        <p className="text-xs text-slate-400">Please select seats from the Ticket Booking map first.</p>
         <Link to="/events" className="text-violet-400 text-xs font-bold inline-block">
-          &larr; Browse BookSeat Catalog
+          &larr; Browse Ticket Booking Catalog
         </Link>
       </div>
     );
@@ -87,7 +87,7 @@ export default function Checkout() {
           <div className="p-6 bg-[#151C2C] border border-gray-800 rounded-3xl space-y-4">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Ticket className="w-5 h-5 text-violet-400" />
-              BookSeat Order Summary
+              Ticket Booking Order Summary
             </h2>
 
             <div className="p-4 rounded-2xl bg-[#0B0F19] border border-gray-800 space-y-1.5">
@@ -123,7 +123,7 @@ export default function Checkout() {
               <div>
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                   <CreditCard className="w-5 h-5 text-emerald-400" />
-                  BookSeat Payment Simulation
+                  Ticket Booking Payment Simulation
                 </h3>
                 <p className="text-xs text-slate-400">Secure checkout sandbox</p>
               </div>
@@ -162,7 +162,7 @@ export default function Checkout() {
 
               <div className="p-4 rounded-2xl bg-[#0B0F19] border border-emerald-500/30 text-xs text-slate-300 flex items-center gap-3">
                 <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
-                <span>Confirming booking will instantly generate your official BookSeat ticket reference and scannable QR pass.</span>
+                <span>Confirming booking will instantly generate your official Ticket Booking ticket reference and scannable QR pass.</span>
               </div>
 
               <button

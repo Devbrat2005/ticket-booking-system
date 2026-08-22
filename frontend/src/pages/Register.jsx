@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import logo from '../assets/logo.png';
 import { Armchair, User, Mail, Lock, AlertCircle, ArrowRight, Sparkles } from 'lucide-react';
 
 export default function Register() {
@@ -39,20 +40,14 @@ export default function Register() {
         <div className="absolute inset-0 z-0 opacity-30">
           <img
             src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=1500"
-            alt="BookSeat Concert Visual"
+            alt="Ticket Booking Concert Visual"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-transparent to-transparent"></div>
         </div>
 
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 to-pink-500 flex items-center justify-center text-white font-bold shadow-lg">
-            <Armchair className="w-5 h-5" />
-          </div>
-          <div className="text-2xl font-black">
-            <span className="text-white">Book</span>
-            <span className="gradient-text-brand">Seat</span>
-          </div>
+        <div className="relative z-10 flex items-center">
+          <img src={logo} alt="Ticket Booking" className="h-10 w-auto object-contain" />
         </div>
 
         <div className="relative z-10 space-y-4 max-w-lg">
@@ -63,12 +58,12 @@ export default function Register() {
             Your Seat. <span className="gradient-text-brand">Your Experience.</span>
           </h2>
           <p className="text-sm text-slate-300 leading-relaxed">
-            Create your BookSeat account to unlock live ticket bookings, real-time visual seat grids, and waitlist offers.
+            Create your Ticket Booking account to unlock live ticket bookings, real-time visual seat grids, and waitlist offers.
           </p>
         </div>
 
         <div className="relative z-10 text-xs text-slate-500 font-mono">
-          &copy; 2026 BookSeat. All rights reserved.
+          &copy; 2026 Ticket Booking. All rights reserved.
         </div>
       </div>
 
@@ -76,8 +71,8 @@ export default function Register() {
       <div className="flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md space-y-8 bg-[#151C2C] p-8 sm:p-10 rounded-3xl border border-gray-800 shadow-2xl">
           <div className="text-center space-y-2">
-            <h2 className="text-2xl font-extrabold text-white">Create your BookSeat account</h2>
-            <p className="text-xs text-slate-400">Join BookSeat ticket platform</p>
+            <h2 className="text-2xl font-extrabold text-white">Create your Ticket Booking account</h2>
+            <p className="text-xs text-slate-400">Join Ticket Booking platform</p>
           </div>
 
           {error && (

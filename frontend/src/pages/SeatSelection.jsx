@@ -123,7 +123,7 @@ export default function SeatSelection() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-20 text-center space-y-4">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500 mx-auto"></div>
-        <p className="text-xs text-slate-400">Loading BookSeat visual grid & live locks...</p>
+        <p className="text-xs text-slate-400">Loading Ticket Booking visual grid & live locks...</p>
       </div>
     );
   }
@@ -136,7 +136,7 @@ export default function SeatSelection() {
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xs font-black uppercase text-white font-mono tracking-wider">
-              BookSeat Selection &bull;
+              Ticket Booking Selection &bull;
             </span>
             <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-violet-600/30 text-violet-300 border border-violet-500/30 font-mono">
               {event?.type}

@@ -30,10 +30,10 @@ export default function BookingConfirmation() {
           <CheckCircle2 className="w-10 h-10" />
         </div>
         <h1 className="text-3xl font-black text-white">✓ Booking Confirmed</h1>
-        <p className="text-base font-bold text-violet-300">Your BookSeat ticket is ready.</p>
+        <p className="text-base font-bold text-violet-300">Your Ticket Booking ticket is ready.</p>
       </div>
 
-      {/* Digital BookSeat Ticket Pass Card */}
+      {/* Digital Ticket Booking Ticket Pass Card */}
       <div className="bg-[#151C2C] border border-violet-500/30 rounded-3xl overflow-hidden shadow-2xl">
         
         <div className="bg-gradient-to-r from-violet-900/90 via-purple-900/90 to-pink-900/90 p-8 border-b border-gray-800 flex flex-wrap justify-between items-center gap-4">
@@ -41,7 +41,7 @@ export default function BookingConfirmation() {
             <div className="flex items-center gap-2 mb-1">
               <Armchair className="w-4 h-4 text-violet-300" />
               <span className="text-[10px] font-mono font-extrabold uppercase tracking-widest text-violet-200">
-                Official BookSeat Ticket Pass
+                Official Ticket Booking Ticket Pass
               </span>
             </div>
             <h2 className="text-2xl font-black text-white">{booking.eventTitle}</h2>
